@@ -1,0 +1,15 @@
+services:
+  server:
+    build:
+      context: .
+    ports:
+      - 8000:8000
+    volumes:
+      - ./playlists:/app/playlists
+      - torchaudio-cache:/home/appuser/.cache/torch
+    stdin_open: true
+    tty: true
+
+volumes:
+  playlists:
+  torchaudio-cache:

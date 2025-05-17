@@ -1,0 +1,12 @@
+torch
+torchaudio
+pedalboard
+soundfile
+numpy
+python-dotenv
+mysql-connector-python
+matplotlib
+IPython
+mir_eval
+spotdl
+pathlib
