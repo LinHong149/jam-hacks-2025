@@ -4,6 +4,7 @@ import subprocess
 import spotdl
 from pathlib import Path
 from pipelines.musicSeperation import musicSeperation
+from pipelines.convertToSheet import convertToSheet
 
 playlists = {}
 def create():
@@ -61,4 +62,17 @@ def convert():
             output_path = os.path.join(lofied_dir, f"lofied_{song}")
             print(f"Processing {input_path}")
             print(f"Output to {output_path}")
-            musicSeperation(input_path, output_path)
+            musicSeperation(input_path, output_path, song)
+
+def sheetMusic():
+    print("Generating sheet music")
+    playlist = input("Playlist to convert: ")
+
+    playlists_dir = "/app/playlists" # Docker /app/playlists
+    notlofied_dir = os.path.join(playlists_dir, f"{playlist}/notlofied") # /app/playlists/{playlist}/lofied
+
+    for song in os.listdir(notlofied_dir):
+        if song.endswith('.wav'):
+            print(f"Converting {song} to sheet music")
+            print(song)
+            convertToSheet(playlist, song)

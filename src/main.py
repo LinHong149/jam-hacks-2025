@@ -9,6 +9,7 @@ def print_menu():
     print("3. Delete playlist")
     print("4. Download playlist")
     print("5. Convert playlist to lofi")
+    print("6. Convert lofi to music sheet")
     return int(input())
 
 
@@ -24,6 +25,8 @@ def main():
             playlist.update()
         case 5: # convert to lofi
             playlist.convert()
+        case 6: # convert to lofi
+            playlist.sheetMusic()
 
 
 
