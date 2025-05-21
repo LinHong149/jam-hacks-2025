@@ -55,18 +55,6 @@ def drumsTransformation(waveform, sample_rate):
 
 
 
-def drumsTransformationLess(waveform, sample_rate):
-    board = Pedalboard([
-        Gain(gain_db=-1),                   # Slightly lower volume
-        Reverb(room_size=0.5, damping=0.6, wet_level=0.2),    # Soften transients
-        HighpassFilter(cutoff_frequency_hz=80),
-        Compressor(threshold_db=-30, ratio=3.0),  # Softer
-    ])
-    
-    processed = transformation(waveform, sample_rate, 22050, 2500, board)
-    return processed
-
-
 
 def bassTransformation(waveform, sample_rate):
 
@@ -74,7 +62,7 @@ def bassTransformation(waveform, sample_rate):
     waveform = highpass_biquad(waveform, sample_rate=sample_rate, cutoff_freq=100)
 
     board = Pedalboard([
-        Gain(gain_db=0),                   # Slightly lower volume
+        # Gain(gain_db=0),                   # Slightly lower volume
         LowShelfFilter(cutoff_frequency_hz=600, gain_db=-16),     # Tame sub-bass rumble
         HighpassFilter(cutoff_frequency_hz=200),  # Remove sub-bass rumble
         HighShelfFilter(cutoff_frequency_hz=2000, gain_db=-6),   # Smooth sharp highs
@@ -87,22 +75,9 @@ def bassTransformation(waveform, sample_rate):
     return processed, sample_rate
 
 
-def bassTransformationLess(waveform, sample_rate):
-    board = Pedalboard([
-        Gain(gain_db=-2),                   # Slightly lower volume
-        # Reverb(room_size=0.5, damping=0.6, wet_level=0.2),    # Soften transients
-        HighpassFilter(cutoff_frequency_hz=80),
-        Compressor(threshold_db=-30, ratio=3.0),  # Softer
-    ])
-    
-    processed = transformation(waveform, sample_rate, 22050, 2500, board)
-    return processed
-
-
-
 def otherTransformation(waveform, sample_rate):
     board = Pedalboard([
-        Gain(gain_db=4),                   # Slightly lower volume
+        Gain(gain_db=4),                   # Slightly higher volume
         # Compressor(threshold_db=-32, ratio=4, attack_ms=5, release_ms=100),
         HighpassFilter(cutoff_frequency_hz=150),  # Remove sub-bass rumble
         Compressor(threshold_db=-36, ratio=5, attack_ms=5, release_ms=100),
@@ -113,19 +88,6 @@ def otherTransformation(waveform, sample_rate):
     
     processed, sample_rate = transformation(waveform, sample_rate, 12000, 1400, board)
     return processed, sample_rate
-
-
-
-def otherTransformationLess(waveform, sample_rate):
-    board = Pedalboard([
-        Gain(gain_db=-2),                   # Slightly lower volume
-        # Reverb(room_size=0.5, damping=0.6, wet_level=0.2),    # Soften transients
-        HighpassFilter(cutoff_frequency_hz=80),
-        Compressor(threshold_db=-30, ratio=3.0),  # Softer
-    ])
-    
-    processed = transformation(waveform, sample_rate, 22050, 2500, board)
-    return processed
 
 
 
